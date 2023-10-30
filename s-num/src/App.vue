@@ -1,8 +1,10 @@
 <script setup>
 import { ref, onMounted } from 'vue'
+import ScoreBoard from "./components/ScoreBoard.vue";
 
 const inputNum = ref([0,0,0])
 const randomNum = ref([0,0,0])
+const resultArr = ref([])
 
 const chkAnswer = (() => {
   let redCount = 0;
@@ -26,6 +28,11 @@ const chkAnswer = (() => {
       redCount++;
     }
   })
+  if(resultArr.value.length === 5){
+    location.reload()
+  }else{
+    resultArr.value.push({ red: redCount, green: greenCount, yellow: yellowCount })
+  }
 });
 
 
@@ -37,19 +44,19 @@ onMounted(() => {
     [allNumbers[i], allNumbers[j]] = [allNumbers[j], allNumbers[i]];
   }
   randomNum.value = allNumbers.slice(0, 3);
-  alert('랜덤넘버는 ' + randomNum.value[0] + randomNum.value[1] + randomNum.value[2] + '입니다')
 })
 
 </script>
 
 <template>
   <div class="backyard">
+    <div style="display: flex; justify-content: center; margin-left: 10%">
     <div class="game-board">
-      <div class="flex-column">
+      <div class="flex-column mb-10">
         <span class="text-h3 font-weight-bold ">Choose the Number</span>
       </div>
       <div class="d-flex flex-column">
-        <div class="d-flex">
+        <div class="d-flex mb-10">
         <v-text-field class="mr-3"
                       @focus="inputNum[0] === 0 ? inputNum[0] = '' : ''"
                       @blur="!inputNum[0] ? inputNum[0] = 0 : ''"
@@ -71,8 +78,12 @@ onMounted(() => {
                 "inputNum[0].length > 1 ||
                  inputNum[1].length > 1 ||
                  inputNum[2].length > 1"
-            variant="text" size="x-large" class="font-weight-bold text-h4" @click="chkAnswer">도전</v-btn>
+            variant="text" size="x-large" class="font-weight-bold text-h4" @click="chkAnswer">
+          {{ resultArr.length === 5 ? '재도전' : '도전!' }}
+        </v-btn>
       </div>
+    </div>
+    <ScoreBoard :result-array="resultArr"></ScoreBoard>
     </div>
 
   </div>
@@ -91,7 +102,7 @@ onMounted(() => {
 .game-board{
   width: 50%;
   height: 50%;
-  margin: 0 auto;
+
   display: flex;
   align-items: center;
   flex-direction: column;
