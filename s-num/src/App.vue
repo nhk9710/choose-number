@@ -6,6 +6,8 @@ const inputNum = ref([0,0,0])
 const randomNum = ref([0,0,0])
 const resultArr = ref([])
 
+const dialog = ref(false)
+
 const chkAnswer = (() => {
   let redCount = 0;
   let yellowCount = 0;
@@ -54,7 +56,21 @@ onMounted(() => {
     <div style="display: flex; justify-content: center; margin-left: 10%">
     <div class="game-board">
       <div class="flex-column mb-10">
-        <span class="text-h3 font-weight-bold ">Choose the Number</span>
+        <span class="font-weight-bold titleTxt">Choose the Number
+        <v-dialog
+          v-model="dialog"
+          activator="parent"
+          width="auto"
+        >
+          <v-card>
+            <v-card-text>
+              규칙
+              1. 기회는 5번
+              2. 빨간색 : 모두 틀림, 노란색: 숫자는 맞음, 초록색: 위치와 숫자 모두 맞음
+            </v-card-text>
+          </v-card>
+        </v-dialog>
+        </span>
       </div>
       <div class="d-flex flex-column">
         <div class="d-flex mb-10">
@@ -108,6 +124,27 @@ onMounted(() => {
   align-items: center;
   flex-direction: column;
   justify-content: space-around;
+}
+
+@media (max-width: 1980px) {
+  .titleTxt{
+    font-size: 3em;
+  }
+}
+@media (max-width: 1480px) {
+  .titleTxt{
+    font-size: 2.5em;
+  }
+}
+@media (max-width: 1080px) {
+  .titleTxt{
+    font-size: 2em;
+  }
+}
+@media (max-width: 500px) {
+  .titleTxt{
+    font-size: 1em;
+  }
 }
 
 
