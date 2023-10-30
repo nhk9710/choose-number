@@ -2,11 +2,22 @@
 import { ref, onMounted } from 'vue'
 import ScoreBoard from "./components/ScoreBoard.vue";
 
+//입력 숫자
 const inputNum = ref([0,0,0])
+//랜덤 숫자
 const randomNum = ref([0,0,0])
+//결과
 const resultArr = ref([])
+//기록
+const historyArr = ref([])
 
+//dialog
 const dialog = ref(false)
+const history = ref(false)
+
+//우승 확인
+const winnerChk = ref(false)
+
 
 const chkAnswer = (() => {
   let redCount = 0;
@@ -30,10 +41,18 @@ const chkAnswer = (() => {
       redCount++;
     }
   })
+
+  if(greenCount === 3){
+    winnerChk.value = true;
+    alert('우승!');
+    location.reload();
+  }
+
   if(resultArr.value.length === 6){
-    alert('화이팅~')
+    alert('정답은' + randomNum.value + '였습니다~ 화이팅~')
     location.reload()
   }else{
+    historyArr.value.push({ one: inputNum.value[0], two: inputNum.value[1], three: inputNum.value[2] })
     resultArr.value.push({ red: redCount, green: greenCount, yellow: yellowCount })
   }
 });
@@ -96,7 +115,22 @@ onMounted(() => {
                  inputNum[1].length > 1 ||
                  inputNum[2].length > 1"
             variant="text" size="x-large" class="font-weight-bold text-h4" @click="chkAnswer">
-          {{ resultArr.length === 6 ? '재도전' : '도전!' }}
+          {{ resultArr.length === 6 || winnerChk ? '재도전' : '도전!' }}
+        </v-btn>
+        <v-btn class="mb-1">기록
+          <v-dialog
+              v-model="history"
+              activator="parent"
+              width="auto"
+          >
+            <v-card>
+              <v-card-text v-for="v in historyArr">
+                <span>{{ v.one }}</span>
+                <span>{{ v.two }}</span>
+                <span>{{ v.three }}</span>
+              </v-card-text>
+            </v-card>
+          </v-dialog>
         </v-btn>
       </div>
     </div>
