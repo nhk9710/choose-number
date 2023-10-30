@@ -30,7 +30,7 @@ const chkAnswer = (() => {
       redCount++;
     }
   })
-  if(resultArr.value.length === 5){
+  if(resultArr.value.length === 6){
     alert('화이팅~')
     location.reload()
   }else{
@@ -65,7 +65,7 @@ onMounted(() => {
           <v-card>
             <v-card-text>
               규칙
-              1. 기회는 5번
+              1. 기회는 6번
               2. 빨간색 : 모두 틀림, 노란색: 숫자는 맞음, 초록색: 위치와 숫자 모두 맞음
             </v-card-text>
           </v-card>
@@ -96,7 +96,7 @@ onMounted(() => {
                  inputNum[1].length > 1 ||
                  inputNum[2].length > 1"
             variant="text" size="x-large" class="font-weight-bold text-h4" @click="chkAnswer">
-          {{ resultArr.length === 5 ? '재도전' : '도전!' }}
+          {{ resultArr.length === 6 ? '재도전' : '도전!' }}
         </v-btn>
       </div>
     </div>
