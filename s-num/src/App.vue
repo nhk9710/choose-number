@@ -82,10 +82,18 @@ onMounted(() => {
           width="auto"
         >
           <v-card>
+            <v-card-title>규칙</v-card-title>
             <v-card-text>
-              규칙
               1. 기회는 6번
-              2. 빨간색 : 모두 틀림, 노란색: 숫자는 맞음, 초록색: 위치와 숫자 모두 맞음
+            </v-card-text>
+            <v-card-text>
+              2. 빨간색 숫자: 랜덤수와 일치하는 숫자 없음
+            </v-card-text>
+            <v-card-text>
+              3. 노란색 숫자: 랜덤수와 일치하는 숫자는 있으나 위치가 틀림
+            </v-card-text>
+            <v-card-text>
+              4. 초록색 숫자: 위치와 숫자 모두 맞음
             </v-card-text>
           </v-card>
         </v-dialog>
@@ -124,6 +132,7 @@ onMounted(() => {
               width="auto"
           >
             <v-card>
+              <v-card-title>이전에 입력한 숫자</v-card-title>
               <v-card-text v-for="v in historyArr">
                 <span>{{ v.one }}</span>
                 <span>{{ v.two }}</span>
