@@ -29,6 +29,7 @@ const chkAnswer = (() => {
     }
   })
   if(resultArr.value.length === 5){
+    alert('화이팅~')
     location.reload()
   }else{
     resultArr.value.push({ red: redCount, green: greenCount, yellow: yellowCount })
