@@ -18,7 +18,24 @@ const history = ref(false)
 //우승 확인
 const winnerChk = ref(false)
 
+//커서용 ref
+const first = ref(null)
+const second = ref(null)
+const third = ref(null)
 
+
+//자동 포커스 이동
+const targetFirst = () => {
+  first.value.focus()
+}
+const targetSecond = () => {
+    second.value.focus();
+}
+const targetThird = () => {
+  third.value.focus();
+}
+
+//정답 확인 메소드
 const chkAnswer = (() => {
   let redCount = 0;
   let yellowCount = 0;
@@ -102,19 +119,22 @@ onMounted(() => {
       <div class="d-flex flex-column">
         <div class="d-flex mb-10">
         <v-text-field class="mr-3"
+                      ref="first"
+                      @input="targetSecond"
                       @focus="inputNum[0] === 0 ? inputNum[0] = '' : ''"
                       @blur="!inputNum[0] ? inputNum[0] = 0 : ''"
-                      :rules="[val => val.length <= 1 ||  '1자리 이상 입력하지 마세요~' ]"
                       v-model="inputNum[0]" variant="solo-filled"></v-text-field>
         <v-text-field class="mr-3"
+                      ref="second"
+                      @input="targetThird"
                       @focus="inputNum[1] === 0 ? inputNum[1] = '' : ''"
                       @blur="!inputNum[1] ? inputNum[1] = 0 : ''"
-                      :rules="[val => val.length <= 1 ||  '1자리 이상 입력하지 마세요~' ]"
                       v-model="inputNum[1]" variant="solo-filled"></v-text-field>
         <v-text-field class="mr-3"
+                      ref="third"
+                      @input="targetFirst"
                       @focus="inputNum[2] === 0 ? inputNum[2] = '' : ''"
                       @blur="!inputNum[2] ? inputNum[2] = 0 : ''"
-                      :rules="[val => val.length <= 1 ||  '1자리 이상 입력하지 마세요~' ]"
                       v-model="inputNum[2]" variant="solo-filled"></v-text-field>
         </div>
         <v-btn
