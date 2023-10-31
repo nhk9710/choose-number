@@ -71,6 +71,7 @@ const chkAnswer = (() => {
   }else{
     historyArr.value.push({ one: inputNum.value[0], two: inputNum.value[1], three: inputNum.value[2] })
     resultArr.value.push({ red: redCount, green: greenCount, yellow: yellowCount })
+    inputNum.value = [0,0,0]
   }
 });
 
